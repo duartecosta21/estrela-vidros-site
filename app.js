@@ -67,7 +67,7 @@
       if (!selected) return;
       projects.forEach(project => {
         const active = project === selected;
-        if (!active) project.querySelector('video').pause();
+        if (!active) project.querySelector('video')?.pause();
         project.hidden = !active;
         project.classList.remove('project-enter');
       });
@@ -86,11 +86,35 @@
     choices.forEach(button => button.addEventListener('click', () => selectProject(button.dataset.projectChoice, button)));
     projects.forEach(project => {
       const video = project.querySelector('video');
+      if (!video) return;
       video.addEventListener('play', () => {
         pauseOtherVideos(video);
         project.querySelector('.project-film').classList.add('film-playing');
         measure('project_video_play', { project: project.dataset.project });
       });
+    });
+    portfolio.querySelectorAll('.project-photo').forEach(carousel => {
+      const slides = carousel.querySelector('.project-photo-slides');
+      const photos = [...slides.querySelectorAll('[data-project-photo]')];
+      const controls = carousel.querySelector('.project-photo-controls');
+      const previous = controls.querySelector('[data-photo-prev]');
+      const next = controls.querySelector('[data-photo-next]');
+      const status = controls.querySelector('[data-photo-status]');
+      let current = 0;
+      function showPhoto(index, direction = '') {
+        current = Math.max(0, Math.min(index, photos.length - 1));
+        slides.dataset.direction = direction;
+        photos.forEach((photo, i) => { photo.hidden = i !== current; });
+        status.textContent = `Foto ${current + 1} de ${photos.length}`;
+        previous.disabled = current === 0;
+        next.disabled = current === photos.length - 1;
+        if (direction) measure('project_photo_select', { project: carousel.closest('[data-project]').dataset.project, photo: current + 1 });
+      }
+      previous.addEventListener('click', () => showPhoto(current - 1, 'previous'));
+      next.addEventListener('click', () => showPhoto(current + 1, 'next'));
+      carousel.classList.add('photo-carousel-ready');
+      controls.hidden = false;
+      showPhoto(0);
     });
     portfolio.classList.add('portfolio-ready');
     selector.hidden = false;
