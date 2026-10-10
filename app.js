@@ -53,22 +53,6 @@
   window.matchMedia('(min-width: 761px)').addEventListener('change', closeMenu);
   document.querySelectorAll('[data-interest]').forEach(link => link.addEventListener('click', () => measure('quote_interest', { placement: link.dataset.interest })));
   document.querySelectorAll('.whatsapp-link').forEach(link => link.addEventListener('click', () => measure('whatsapp_click', { placement: link.id === 'prepared-link' ? 'prepared_message' : 'direct_contact' })));
-  const dialog = document.getElementById('lightbox');
-  const lightboxImage = document.getElementById('lightbox-image');
-  let trigger;
-  document.addEventListener('click', event => {
-    const button = event.target.closest('[data-image]');
-    if (!button) return;
-    trigger = button;
-    lightboxImage.src = button.dataset.image;
-    lightboxImage.alt = button.dataset.caption;
-    document.getElementById('lightbox-caption').textContent = button.dataset.caption;
-    dialog.showModal();
-    measure('image_view', { kind: button.dataset.kind || (button.classList.contains('source-link') ? 'testimonial' : 'project') });
-  });
-  document.getElementById('close-lightbox').addEventListener('click', () => dialog.close());
-  dialog.addEventListener('click', event => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close(); } });
-  dialog.addEventListener('close', () => { lightboxImage.removeAttribute('src'); trigger?.focus(); });
   function pauseOtherVideos(active) {
     document.querySelectorAll('video').forEach(video => { if (video !== active) video.pause(); });
   }
@@ -127,21 +111,12 @@
     gallery.replaceChildren(...visible.map(item => {
       const card = document.createElement('figure');
       card.className = 'feedback-card';
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.className = 'feedback-image';
-      button.dataset.image = item.poster;
-      button.dataset.caption = item.excerpt ? `${item.title}. Trecho da mensagem compartilhada pela Estrela.` : item.title;
-      button.dataset.kind = 'testimonial';
-      button.setAttribute('aria-label', `Ampliar relato: ${item.title}`);
       const img = document.createElement('img');
+      img.className = 'feedback-image';
       img.src = item.poster; img.alt = item.title;
       img.width = item.width; img.height = item.height;
       img.loading = 'lazy';
-      const zoom = document.createElement('span');
-      zoom.className = 'feedback-zoom'; zoom.textContent = 'Ampliar conversa';
-      button.append(img, zoom);
-      card.append(button);
+      card.append(img);
       const caption = document.createElement('figcaption');
       const title = document.createElement('strong'); title.textContent = item.title;
       const format = document.createElement('span'); format.textContent = item.excerpt ? 'Trecho de mensagem compartilhada pela Estrela' : 'Mensagem compartilhada pela Estrela';
