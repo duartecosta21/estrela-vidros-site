@@ -41,3 +41,32 @@ html[data-motion="reduced"] *,html[data-motion="reduced"] *:before,html[data-mot
 
 /* Ícones SVG consistentes, inclusive em iOS. */
 .ui-icon{display:inline-block;width:18px;height:18px;vertical-align:middle;flex-shrink:0}.button .ui-icon,.text-link .ui-icon,.project-info a .ui-icon{width:16px;height:16px}.image-plus .ui-icon{width:19px;height:19px}.lightbox-close .ui-icon{width:24px;height:24px}
+
+/* Comparador: a máscara mantém as duas fotos no mesmo enquadramento. */
+.comparison-section{display:grid;grid-template-columns:.85fr 1.15fr;gap:70px;align-items:center;border-top:1px solid var(--line);background:#eceeeb}
+.comparison-intro h2{max-width:13ch}.comparison-intro>p{font-size:14px;color:var(--muted);max-width:37ch}
+.comparison-source{border-top:1px solid #c6ccca;padding-top:18px;margin-top:26px;font-size:12px!important;line-height:1.7}
+.comparison-frame{position:relative;isolation:isolate;background:#dce1dd;--comparison-position:50%}
+.comparison-photo{margin:0;position:relative}.comparison-photo img{width:100%;display:block;aspect-ratio:4/5;object-fit:cover;object-position:center;user-select:none;-webkit-user-drag:none}
+.comparison-photo figcaption{padding:12px 0;font-size:12px;font-weight:600}
+.comparison-controls{display:none}.comparison-ready .comparison-frame{aspect-ratio:4/5;overflow:hidden;touch-action:pan-y;cursor:ew-resize}
+.comparison-ready .comparison-photo{position:absolute;inset:0}.comparison-ready .comparison-photo img{width:100%;height:100%;aspect-ratio:auto}
+.comparison-ready .comparison-before img{position:relative;z-index:2;clip-path:inset(0 calc(100% - var(--comparison-position)) 0 0)}
+.comparison-ready .comparison-photo figcaption{position:absolute;z-index:5;top:16px;padding:8px 12px;background:#f7f8f7ed;color:var(--ink);font-size:11px;pointer-events:none}
+.comparison-ready .comparison-before figcaption{left:16px}.comparison-ready .comparison-after figcaption{right:16px}
+.comparison-ready .comparison-controls{display:block}
+.comparison-range{position:absolute;inset:0;width:100%;height:100%;margin:0;opacity:0;z-index:4;cursor:ew-resize;touch-action:pan-y}
+.comparison-frame:focus-within{outline:3px solid #8d6e14;outline-offset:5px}
+.comparison-divider{position:absolute;top:0;bottom:0;left:var(--comparison-position);z-index:3;width:2px;background:var(--gold);transform:translateX(-50%);pointer-events:none;box-shadow:0 0 0 1px #30333533}
+.comparison-handle{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);display:flex;align-items:center;justify-content:center;width:48px;height:48px;border-radius:50%;background:var(--gold);color:var(--ink);border:1px solid #a58632;box-shadow:0 3px 15px #0003}
+.comparison-handle svg{width:24px;height:24px}
+.comparison-endpoints{display:none;align-items:center;justify-content:space-between;gap:12px;margin-top:17px;font-size:11px;color:var(--muted)}
+.comparison-endpoints button{font-size:12px;min-height:44px;padding:9px 14px;background:transparent;border:1px solid #a5adaa;color:var(--ink);border-radius:2px}
+.comparison-endpoints button:hover{background:var(--paper)}
+.comparison-endpoints p{margin:0;text-align:center;font-size:10px}
+.comparison-note{font-size:11px;color:var(--muted);margin:15px 0 0;line-height:1.7}
+@media(max-width:1000px){.comparison-section{gap:40px}}
+@media(max-width:760px){.comparison-section{grid-template-columns:1fr;gap:30px}.comparison-intro h2{max-width:16ch}.comparison-intro>p{max-width:48ch}.comparison-source{margin-top:18px;padding-top:15px}.comparison-frame{max-width:550px;margin:auto}.comparison-handle{width:44px;height:44px}.comparison-ready .comparison-photo figcaption{top:12px;font-size:10px;padding:7px 10px}.comparison-ready .comparison-before figcaption{left:12px}.comparison-ready .comparison-after figcaption{right:12px}.comparison-endpoints{max-width:550px;margin-left:auto;margin-right:auto}.comparison-endpoints button{padding:8px 11px;font-size:11px}.comparison-endpoints p{font-size:9px}}
+
+.comparison-range{appearance:none;-webkit-appearance:none;background:transparent}.comparison-range::-webkit-slider-thumb{appearance:none;-webkit-appearance:none;width:1px;height:1px;border:0;background:transparent}.comparison-range::-moz-range-thumb{width:1px;height:1px;border:0;background:transparent}
+.comparison-ready .comparison-endpoints{display:flex}

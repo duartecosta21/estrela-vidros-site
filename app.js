@@ -137,6 +137,63 @@
   next.addEventListener('click', () => { offset += feedbackSize.matches ? 1 : 3; renderFeedback('next'); measure('feedback_page', { group }); });
   feedbackSize.addEventListener('change', () => { offset = 0; renderFeedback(); });
   renderFeedback();
+  const comparison = document.querySelector('[data-comparison]');
+  if (comparison) {
+    const range = comparison.querySelector('input[type="range"]');
+    const frame = comparison.querySelector('.comparison-frame');
+    const readout = comparison.querySelector('.comparison-value');
+    function setComparison(value) {
+      const position = Math.max(0, Math.min(100, Math.round(value)));
+      range.value = String(position);
+      frame.style.setProperty('--comparison-position', `${position}%`);
+      range.setAttribute('aria-valuetext', `${position}% da imagem antes e ${100 - position}% da imagem depois`);
+      readout.textContent = `${position}% antes / ${100 - position}% depois`;
+    }
+    setComparison(range.value);
+    comparison.classList.add('comparison-ready');
+    range.addEventListener('input', () => setComparison(range.value));
+    range.addEventListener('change', () => measure('comparison_change'));
+    let drag;
+    // Pan vertical permanece do navegador; arraste horizontal usa a mesma posição do range.
+    frame.addEventListener('pointerdown', event => {
+      if (!event.isPrimary || event.button !== 0) return;
+      drag = { id: event.pointerId, x: event.clientX, y: event.clientY, moving: false };
+      if (event.pointerType !== 'touch') {
+        range.focus({ preventScroll: true });
+        const rect = frame.getBoundingClientRect();
+        setComparison((event.clientX - rect.left) / rect.width * 100);
+      }
+      frame.setPointerCapture(event.pointerId);
+    });
+    frame.addEventListener('pointermove', event => {
+      if (!drag || drag.id !== event.pointerId) return;
+      const horizontal = Math.abs(event.clientX - drag.x);
+      const vertical = Math.abs(event.clientY - drag.y);
+      if (!drag.moving && horizontal < 6) return;
+      if (!drag.moving && vertical > horizontal) { drag = null; return; }
+      drag.moving = true;
+      const rect = frame.getBoundingClientRect();
+      setComparison((event.clientX - rect.left) / rect.width * 100);
+    });
+    function finishComparison(event) {
+      if (!drag || drag.id !== event.pointerId) return;
+      if (event.type === 'pointerup') {
+        if (!drag.moving) {
+          const rect = frame.getBoundingClientRect();
+          setComparison((event.clientX - rect.left) / rect.width * 100);
+        }
+        measure('comparison_change');
+      }
+      drag = null;
+    }
+    frame.addEventListener('pointerup', finishComparison);
+    frame.addEventListener('pointercancel', finishComparison);
+    frame.addEventListener('lostpointercapture', () => { drag = null; });
+    comparison.querySelectorAll('[data-comparison-value]').forEach(button => button.addEventListener('click', () => {
+      setComparison(Number(button.dataset.comparisonValue));
+      measure('comparison_change');
+    }));
+  }
   const form = document.getElementById('quote-form');
   const preview = document.getElementById('message-preview');
   form.addEventListener('submit', event => {
