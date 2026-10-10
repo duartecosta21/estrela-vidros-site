@@ -117,53 +117,34 @@
   const previous = document.getElementById('feedback-prev');
   const next = document.getElementById('feedback-next');
   const feedbackSize = window.matchMedia('(max-width: 760px)');
-  const order = [19, 4, 22, 20, 21, 18, 23, 26, 27, 12, 9, 8, 7, 6, 5, 13, 14, 15, 16, 17];
-  let group = 'feedback';
   let offset = 0;
   function renderFeedback(direction = '') {
     gallery.dataset.direction = direction;
-    gallery.querySelectorAll('video').forEach(video => video.pause());
-    const items = (window.estrelaFeedback || []).filter(item => item.group === group);
-    if (group === 'feedback') items.sort((a, b) => order.indexOf(a.id) - order.indexOf(b.id));
+    const items = window.estrelaFeedback || [];
     const size = feedbackSize.matches ? 1 : 3;
     offset = Math.min(offset, Math.max(0, Math.floor((items.length - 1) / size) * size));
     const visible = items.slice(offset, offset + size);
     gallery.replaceChildren(...visible.map(item => {
       const card = document.createElement('figure');
       card.className = 'feedback-card';
-      if (item.video) {
-        const video = document.createElement('video');
-        video.controls = true;
-        video.playsInline = true;
-        video.preload = 'none';
-        video.poster = item.poster;
-        video.src = item.video;
-        video.setAttribute('aria-label', item.title);
-        video.addEventListener('play', () => {
-          pauseOtherVideos(video);
-          measure('feedback_video_play', { media_id: item.id });
-        });
-        card.append(video);
-      } else {
-        const button = document.createElement('button');
-        button.type = 'button';
-        button.className = 'feedback-image';
-        button.dataset.image = item.poster;
-        button.dataset.caption = item.title;
-        button.dataset.kind = 'testimonial';
-        button.setAttribute('aria-label', `Ampliar relato: ${item.title}`);
-        const img = document.createElement('img');
-        img.src = item.poster; img.alt = item.title;
-        img.width = item.width; img.height = item.height;
-        img.loading = 'lazy';
-        const zoom = document.createElement('span');
-        zoom.className = 'feedback-zoom'; zoom.textContent = 'Ampliar';
-        button.append(img, zoom);
-        card.append(button);
-      }
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.className = 'feedback-image';
+      button.dataset.image = item.poster;
+      button.dataset.caption = item.excerpt ? `${item.title}. Trecho da mensagem compartilhada pela Estrela.` : item.title;
+      button.dataset.kind = 'testimonial';
+      button.setAttribute('aria-label', `Ampliar relato: ${item.title}`);
+      const img = document.createElement('img');
+      img.src = item.poster; img.alt = item.title;
+      img.width = item.width; img.height = item.height;
+      img.loading = 'lazy';
+      const zoom = document.createElement('span');
+      zoom.className = 'feedback-zoom'; zoom.textContent = 'Ampliar conversa';
+      button.append(img, zoom);
+      card.append(button);
       const caption = document.createElement('figcaption');
       const title = document.createElement('strong'); title.textContent = item.title;
-      const format = document.createElement('span'); format.textContent = item.video ? 'Vídeo compartilhado pela Estrela' : 'Mensagem compartilhada pela Estrela';
+      const format = document.createElement('span'); format.textContent = item.excerpt ? 'Trecho de mensagem compartilhada pela Estrela' : 'Mensagem compartilhada pela Estrela';
       caption.append(title, format); card.append(caption);
       return card;
     }));
@@ -171,13 +152,8 @@
     previous.disabled = offset === 0;
     next.disabled = offset + size >= items.length;
   }
-  document.querySelectorAll('[data-feedback-filter]').forEach(button => button.addEventListener('click', () => {
-    group = button.dataset.feedbackFilter; offset = 0;
-    document.querySelectorAll('[data-feedback-filter]').forEach(other => other.setAttribute('aria-pressed', String(other === button)));
-    renderFeedback('next'); measure('feedback_filter', { group });
-  }));
-  previous.addEventListener('click', () => { offset = Math.max(0, offset - (feedbackSize.matches ? 1 : 3)); renderFeedback('previous'); measure('feedback_page', { group }); });
-  next.addEventListener('click', () => { offset += feedbackSize.matches ? 1 : 3; renderFeedback('next'); measure('feedback_page', { group }); });
+  previous.addEventListener('click', () => { offset = Math.max(0, offset - (feedbackSize.matches ? 1 : 3)); renderFeedback('previous'); measure('feedback_page'); });
+  next.addEventListener('click', () => { offset += feedbackSize.matches ? 1 : 3; renderFeedback('next'); measure('feedback_page'); });
   feedbackSize.addEventListener('change', () => { offset = 0; renderFeedback(); });
   renderFeedback();
   const form = document.getElementById('quote-form');

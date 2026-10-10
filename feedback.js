@@ -1,1 +1,106 @@
-window.estrelaFeedback = [{"id": 0, "title": "Pezão Bar, Indaiatuba: parte 1", "group": "partners", "poster": "assets/clientes/cliente-00.webp", "width": 640, "height": 1264, "video": "assets/clientes/cliente-00.mp4"}, {"id": 1, "title": "Pezão Bar, Indaiatuba: parte 2", "group": "partners", "poster": "assets/clientes/cliente-01.webp", "width": 640, "height": 1264, "video": "assets/clientes/cliente-01.mp4"}, {"id": 2, "title": "Pezão Bar, Indaiatuba: parte 3", "group": "partners", "poster": "assets/clientes/cliente-02.webp", "width": 640, "height": 1264, "video": "assets/clientes/cliente-02.mp4"}, {"id": 3, "title": "Pezão Bar, Indaiatuba: parte 4", "group": "partners", "poster": "assets/clientes/cliente-03.webp", "width": 640, "height": 1264, "video": "assets/clientes/cliente-03.mp4"}, {"id": 4, "title": "Atendimento durante a obra", "group": "feedback", "poster": "assets/clientes/cliente-04.webp", "width": 911, "height": 1800}, {"id": 5, "title": "Maurício, após a instalação", "group": "feedback", "poster": "assets/clientes/cliente-05.webp", "width": 1000, "height": 1778}, {"id": 6, "title": "Profissionalismo e novo orçamento", "group": "feedback", "poster": "assets/clientes/cliente-06.webp", "width": 1000, "height": 1778}, {"id": 7, "title": "Feedback sobre a instalação", "group": "feedback", "poster": "assets/clientes/cliente-07.webp", "width": 1000, "height": 1778}, {"id": 8, "title": "Novos pedidos depois da entrega", "group": "feedback", "poster": "assets/clientes/cliente-08.webp", "width": 1000, "height": 1778}, {"id": 9, "title": "Atendimento e instalação", "group": "feedback", "poster": "assets/clientes/cliente-09.webp", "width": 1000, "height": 1778}, {"id": 10, "title": "Projeto com a Concretiza3D", "group": "partners", "poster": "assets/clientes/cliente-10.webp", "width": 640, "height": 1136, "video": "assets/clientes/cliente-10.mp4"}, {"id": 11, "title": "Projeto com Silas Mendes", "group": "partners", "poster": "assets/clientes/cliente-11.webp", "width": 828, "height": 1472}, {"id": 12, "title": "Atendimento em destaque", "group": "feedback", "poster": "assets/clientes/cliente-12.webp", "width": 828, "height": 1472}, {"id": 13, "title": "Josi, instalação do espelho", "group": "feedback", "poster": "assets/clientes/cliente-13.webp", "width": 1000, "height": 1778}, {"id": 14, "title": "Mariana, instalação do espelho", "group": "feedback", "poster": "assets/clientes/cliente-14.webp", "width": 1000, "height": 1778}, {"id": 15, "title": "Amanda, instalação do espelho", "group": "feedback", "poster": "assets/clientes/cliente-15.webp", "width": 1000, "height": 1778}, {"id": 16, "title": "Paulo, instalação do vidro", "group": "feedback", "poster": "assets/clientes/cliente-16.webp", "width": 1000, "height": 1778}, {"id": 17, "title": "Relato do Apartamento 402", "group": "feedback", "poster": "assets/clientes/cliente-17.webp", "width": 828, "height": 1472}, {"id": 18, "title": "Cliente que volta", "group": "feedback", "poster": "assets/clientes/cliente-18.webp", "width": 640, "height": 1136, "video": "assets/clientes/cliente-18.mp4"}, {"id": 19, "title": "Acabamento e atenção da equipe", "group": "feedback", "poster": "assets/clientes/cliente-19.webp", "width": 640, "height": 1136, "video": "assets/clientes/cliente-19.mp4"}, {"id": 20, "title": "Feedback em Santo Antônio, Itu", "group": "feedback", "poster": "assets/clientes/cliente-20.webp", "width": 640, "height": 1136, "video": "assets/clientes/cliente-20.mp4"}, {"id": 21, "title": "André Luiz Silva, parceria nas obras", "group": "feedback", "poster": "assets/clientes/cliente-21.webp", "width": 1000, "height": 1778}, {"id": 22, "title": "Entrega e recomendação", "group": "feedback", "poster": "assets/clientes/cliente-22.webp", "width": 1000, "height": 1778}, {"id": 23, "title": "Qualidade das portas", "group": "feedback", "poster": "assets/clientes/cliente-23.webp", "width": 640, "height": 1136, "video": "assets/clientes/cliente-23.mp4"}, {"id": 24, "title": "Visita ao banheiro master", "group": "partners", "poster": "assets/clientes/cliente-24.webp", "width": 640, "height": 1136, "video": "assets/clientes/cliente-24.mp4"}, {"id": 25, "title": "Mensagem do parceiro de engenharia", "group": "partners", "poster": "assets/clientes/cliente-25.webp", "width": 640, "height": 1136, "video": "assets/clientes/cliente-25.mp4"}, {"id": 26, "title": "Prazo, instalação e atendimento", "group": "feedback", "poster": "assets/clientes/cliente-26.webp", "width": 640, "height": 1136, "video": "assets/clientes/cliente-26.mp4"}, {"id": 27, "title": "Mais retornos de clientes", "group": "feedback", "poster": "assets/clientes/cliente-27.webp", "width": 640, "height": 1136, "video": "assets/clientes/cliente-27.mp4"}];
+window.estrelaFeedback = [
+  {
+    "id": 19,
+    "title": "Acabamento e atenção da equipe",
+    "poster": "assets/depoimentos/whatsapp-19.webp",
+    "width": 425,
+    "height": 642,
+    "excerpt": false
+  },
+  {
+    "id": 8,
+    "title": "Capricho nas instalações",
+    "poster": "assets/depoimentos/whatsapp-08.webp",
+    "width": 863,
+    "height": 873,
+    "excerpt": false
+  },
+  {
+    "id": 9,
+    "title": "Atendimento e instalação",
+    "poster": "assets/depoimentos/whatsapp-09.webp",
+    "width": 1055,
+    "height": 1055,
+    "excerpt": false
+  },
+  {
+    "id": 4,
+    "title": "Acompanhamento durante a obra",
+    "poster": "assets/depoimentos/whatsapp-04.webp",
+    "width": 960,
+    "height": 1295,
+    "excerpt": true
+  },
+  {
+    "id": 18,
+    "title": "Qualidade e recomendação",
+    "poster": "assets/depoimentos/whatsapp-18.webp",
+    "width": 607,
+    "height": 368,
+    "excerpt": false
+  },
+  {
+    "id": 6,
+    "title": "Profissionalismo e novo orçamento",
+    "poster": "assets/depoimentos/whatsapp-06.webp",
+    "width": 894,
+    "height": 789,
+    "excerpt": false
+  },
+  {
+    "id": 5,
+    "title": "Instalação bem feita",
+    "poster": "assets/depoimentos/whatsapp-05.webp",
+    "width": 831,
+    "height": 259,
+    "excerpt": false
+  },
+  {
+    "id": 7,
+    "title": "Cuidado na entrega",
+    "poster": "assets/depoimentos/whatsapp-07.webp",
+    "width": 849,
+    "height": 167,
+    "excerpt": false
+  },
+  {
+    "id": 13,
+    "title": "Josi, instalação do espelho",
+    "poster": "assets/depoimentos/whatsapp-13.webp",
+    "width": 868,
+    "height": 292,
+    "excerpt": false
+  },
+  {
+    "id": 14,
+    "title": "Mariana, instalação do espelho",
+    "poster": "assets/depoimentos/whatsapp-14.webp",
+    "width": 676,
+    "height": 352,
+    "excerpt": false
+  },
+  {
+    "id": 15,
+    "title": "Amanda, instalação do espelho",
+    "poster": "assets/depoimentos/whatsapp-15.webp",
+    "width": 718,
+    "height": 113,
+    "excerpt": false
+  },
+  {
+    "id": 16,
+    "title": "Paulo, retorno após a instalação",
+    "poster": "assets/depoimentos/whatsapp-16.webp",
+    "width": 772,
+    "height": 153,
+    "excerpt": false
+  },
+  {
+    "id": 23,
+    "title": "Acabamento, prazo e indicação",
+    "poster": "assets/depoimentos/whatsapp-23.webp",
+    "width": 292,
+    "height": 285,
+    "excerpt": false
+  }
+];
