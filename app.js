@@ -5,7 +5,7 @@
   const motionToggle = document.getElementById('motion-toggle');
   let manualReduction = false;
   let photoObserver;
-  const photos = [...document.querySelectorAll('.project .image-button, .about-photo')];
+  const photos = [...document.querySelectorAll('.project .image-button, .about-photo, .founder-photo, .project-film')];
   function reduceMotion() { return systemMotion.matches || manualReduction; }
   function applyMotion() {
     root.dataset.motion = reduceMotion() ? 'reduced' : 'full';
@@ -69,6 +69,49 @@
   document.getElementById('close-lightbox').addEventListener('click', () => dialog.close());
   dialog.addEventListener('click', event => { if (event.target === dialog) { const r = dialog.getBoundingClientRect(); if (event.clientX < r.left || event.clientX > r.right || event.clientY < r.top || event.clientY > r.bottom) dialog.close(); } });
   dialog.addEventListener('close', () => { lightboxImage.removeAttribute('src'); trigger?.focus(); });
+  function pauseOtherVideos(active) {
+    document.querySelectorAll('video').forEach(video => { if (video !== active) video.pause(); });
+  }
+  const portfolio = document.querySelector('.video-portfolio');
+  if (portfolio) {
+    const projects = [...portfolio.querySelectorAll('[data-project]')];
+    const selector = portfolio.querySelector('.project-selector');
+    const choices = [...selector.querySelectorAll('[data-project-choice]')];
+    const announcement = selector.querySelector('.project-selection-status');
+    function selectProject(name, trigger) {
+      const selected = projects.find(project => project.dataset.project === name);
+      if (!selected) return;
+      projects.forEach(project => {
+        const active = project === selected;
+        if (!active) project.querySelector('video').pause();
+        project.hidden = !active;
+        project.classList.remove('project-enter');
+      });
+      selected.querySelector('.video-project-info').append(selector);
+      choices.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.projectChoice === name)));
+      if (trigger) {
+        selected.classList.add('project-enter');
+        announcement.textContent = `Exibindo ${selected.querySelector('h3').textContent}.`;
+        trigger.focus({ preventScroll: true });
+        measure('project_select', { project: name });
+        if (window.matchMedia('(max-width: 760px)').matches) {
+          selected.scrollIntoView({ behavior: reduceMotion() ? 'auto' : 'smooth', block: 'start' });
+        }
+      }
+    }
+    choices.forEach(button => button.addEventListener('click', () => selectProject(button.dataset.projectChoice, button)));
+    projects.forEach(project => {
+      const video = project.querySelector('video');
+      video.addEventListener('play', () => {
+        pauseOtherVideos(video);
+        project.querySelector('.project-film').classList.add('film-playing');
+        measure('project_video_play', { project: project.dataset.project });
+      });
+    });
+    portfolio.classList.add('portfolio-ready');
+    selector.hidden = false;
+    selectProject(projects[0].dataset.project);
+  }
   const gallery = document.getElementById('feedback-gallery');
   const status = document.getElementById('feedback-status');
   const previous = document.getElementById('feedback-prev');
@@ -97,7 +140,7 @@
         video.src = item.video;
         video.setAttribute('aria-label', item.title);
         video.addEventListener('play', () => {
-          gallery.querySelectorAll('video').forEach(other => { if (other !== video) other.pause(); });
+          pauseOtherVideos(video);
           measure('feedback_video_play', { media_id: item.id });
         });
         card.append(video);
